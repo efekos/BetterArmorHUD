@@ -2,25 +2,28 @@
   "schemaVersion": 1,
   "id": "better_armor_hud",
   "version": "${version}",
-
   "name": "BetterArmorHUD",
   "description": "Better armor hud",
-  "authors": [],
-  "contact": {},
-
+  "authors": [
+    "efekos"
+  ],
+  "contact": {
+    "repo": "https://github.com/efekos/BetterArmorHUD"
+  },
   "license": "All-Rights-Reserved",
   "icon": "assets/better_armor_hud/icon.png",
-
   "environment": "client",
-  "entrypoints": {},
-
-      "mixins": [
-        "better_armor_hud.mixins.json"
-      ],
-
+  "entrypoints": {
+    "client": [
+      "dev.efekos.better_armor_hud.client.BetterArmorHUDClient"
+    ]
+  },
+  "mixins": [
+    "better_armor_hud.mixins.json"
+  ],
   "depends": {
     "fabricloader": ">=${loader_version}",
-        "fabric": "*",
+    "fabric": "*",
     "minecraft": "${minecraft_version}"
   }
 }
