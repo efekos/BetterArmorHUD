@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(InGameHud.class)
-public abstract class IngameHudMixin{
+public abstract class InGameHudMixin {
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
@@ -75,11 +75,15 @@ public abstract class IngameHudMixin{
     @Unique
     private static final Identifier TOUGHNESS_HALF = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/toughness_half");
     @Unique
-    private static final Identifier UNKNOWN_HALF_LEFT = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_left");
+    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_left");
     @Unique
-    private static final Identifier UNKNOWN_HALF_RIGHT = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_right");
+    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_right");
     @Unique
-    private static final Identifier UNKNOWN_FULL = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_full");
+    private static final Identifier UNKNOWN_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_full");
+    @Unique
+    private static final Identifier KNOCKBACK_RESISTANCE_FULL = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/knockback_resistance_full");
+    @Unique
+    private static final Identifier KNOCKBACK_RESISTANCE_HALF = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/knockback_resistance_half");
 
     @Inject(method = "renderStatusBars",at = @At("TAIL"))
     public void renderStatusBars(DrawContext context, CallbackInfo ci){
@@ -107,6 +111,7 @@ public abstract class IngameHudMixin{
             if(playerEntity.getEquippedStack(EquipmentSlot.FEET) != ItemStack.EMPTY) armorStacks.add(playerEntity.getEquippedStack(EquipmentSlot.FEET));
 
             int toughness = (int) calculateToughness(armorStacks);
+            int knockbackResistance = (int) calculateKnockbackResistance(armorStacks);
             AtomicInteger leatherLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.LEATHER, armorStacks));
             AtomicInteger chainLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.CHAIN, armorStacks));
             AtomicInteger netheriteLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.NETHERITE, armorStacks));
@@ -127,7 +132,7 @@ public abstract class IngameHudMixin{
 
             //armor
             for (int i = 0; i < 10; i++) {
-                context.drawGuiTexture(IngameHudMixin.ARMOR_EMPTY_TEXTURE,x+i*8,y,9,9);
+                context.drawGuiTexture(InGameHudMixin.ARMOR_EMPTY_TEXTURE,x+i*8,y,9,9);
 
                 if(netheriteLevel.get() >=2) {
                     context.drawGuiTexture(NETHERITE_FULL_TEXTURE,x+i*8,y,9,9);
@@ -198,11 +203,11 @@ public abstract class IngameHudMixin{
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
                 } else if (otherLevel.get()>=2){
-                    context.drawGuiTexture(UNKNOWN_FULL,x+i*8,y,9,9);
+                    context.drawGuiTexture(UNKNOWN_FULL_TEXTURE,x+i*8,y,9,9);
                     otherLevel.getAndAdd(-2);
                 } else if (otherLevel.get()==1){
                     otherLevel.getAndDecrement();
-                    context.drawGuiTexture(UNKNOWN_HALF_LEFT,x+i*8,y,9,9);
+                    context.drawGuiTexture(UNKNOWN_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
 
                     checkForRights(context,x,y,i,netheriteLevel,diamondLevel,goldLevel,ironLevel,leatherLevel,chainLevel,turtleLevel,otherLevel);
                 }
@@ -217,6 +222,18 @@ public abstract class IngameHudMixin{
                 } else if(toughness==1){
                     context.drawGuiTexture(TOUGHNESS_HALF,x+i*8,y,9,9);
                     toughness--;
+                }
+            }
+
+
+            //knockback resistance
+            for (int i = 0; i < 10; i++) {
+                if(knockbackResistance>=2){
+                    context.drawGuiTexture(KNOCKBACK_RESISTANCE_FULL,x+i*8,y,9,9);
+                    knockbackResistance-=2;
+                } else if(knockbackResistance==1){
+                    context.drawGuiTexture(KNOCKBACK_RESISTANCE_HALF,x+i*8,y,9,9);
+                    knockbackResistance--;
                 }
             }
         }
@@ -237,16 +254,26 @@ public abstract class IngameHudMixin{
         int i = 0;
         for (ItemStack item : items) {
             ArmorItem armorItem = (ArmorItem) item.getItem();
-            i += armorItem.getToughness();
+            i += (int) armorItem.getToughness();
         }
         return i;
     }
 
     @Unique
-    private void checkForRights(DrawContext context,int x,int y,int i,AtomicInteger netheritelevel, AtomicInteger diamondLevel, AtomicInteger goldLevel, AtomicInteger ironLevel, AtomicInteger leatherLevel, AtomicInteger chainLevel, AtomicInteger turtleLevel,AtomicInteger otherLevel) {
-        if(netheritelevel.get()>=1){
+    private float calculateKnockbackResistance(List<ItemStack> items){
+        int i = 0;
+        for (ItemStack item : items) {
+            ArmorItem armorItem = (ArmorItem) item.getItem();
+            i += (int) (armorItem.getMaterial().getKnockbackResistance()*10.0F);
+        }
+        return i;
+    }
+
+    @Unique
+    private void checkForRights(DrawContext context,int x,int y,int i,AtomicInteger netheriteLevel, AtomicInteger diamondLevel, AtomicInteger goldLevel, AtomicInteger ironLevel, AtomicInteger leatherLevel, AtomicInteger chainLevel, AtomicInteger turtleLevel,AtomicInteger otherLevel) {
+        if(netheriteLevel.get()>=1){
             context.drawGuiTexture(NETHERITE_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
-            netheritelevel.getAndDecrement();
+            netheriteLevel.getAndDecrement();
 
         } else if (diamondLevel.get()>=1){
             context.drawGuiTexture(DIAMOND_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
@@ -272,7 +299,7 @@ public abstract class IngameHudMixin{
             context.drawGuiTexture(TURTLE_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
             turtleLevel.getAndDecrement();
         } else if(otherLevel.get()>=1){
-            context.drawGuiTexture(UNKNOWN_HALF_RIGHT,x+i*8,y,9,9);
+            context.drawGuiTexture(UNKNOWN_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
             otherLevel.getAndDecrement();
         }
     }
