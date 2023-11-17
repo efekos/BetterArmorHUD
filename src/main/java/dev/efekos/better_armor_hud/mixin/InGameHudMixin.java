@@ -120,14 +120,14 @@ public abstract class InGameHudMixin {
             AtomicInteger goldLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.GOLD, armorStacks));
             AtomicInteger ironLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.IRON, armorStacks));
             AtomicInteger otherLevel = new AtomicInteger(
-                playerEntity.getArmor()-
-                        leatherLevel.get()-
-                        chainLevel.get()-
-                        netheriteLevel.get()-
-                        turtleLevel.get()-
-                        diamondLevel.get()-
-                        goldLevel.get()-
-                        ironLevel.get()
+                    playerEntity.getArmor()-
+                            leatherLevel.get()-
+                            chainLevel.get()-
+                            netheriteLevel.get()-
+                            turtleLevel.get()-
+                            diamondLevel.get()-
+                            goldLevel.get()-
+                            ironLevel.get()
             );
 
             //armor
