@@ -6,7 +6,10 @@ import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.ArmorMaterials;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Final;
@@ -26,8 +29,8 @@ public abstract class InGameHudMixin {
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
-    @Shadow @Final private static Identifier ARMOR_EMPTY_TEXTURE;
     @Shadow private int renderHealthValue;
+    @Shadow @Final private static Identifier ARMOR_EMPTY_TEXTURE;
     @Unique
     private static final Identifier DIAMOND_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/diamond_full");
     @Unique
@@ -132,7 +135,7 @@ public abstract class InGameHudMixin {
 
             //armor
             for (int i = 0; i < 10; i++) {
-                context.drawGuiTexture(InGameHudMixin.ARMOR_EMPTY_TEXTURE,x+i*8,y,9,9);
+                context.drawGuiTexture(ARMOR_EMPTY_TEXTURE,x+i*8,y,9,9);
 
                 if(netheriteLevel.get() >=2) {
                     context.drawGuiTexture(NETHERITE_FULL_TEXTURE,x+i*8,y,9,9);
