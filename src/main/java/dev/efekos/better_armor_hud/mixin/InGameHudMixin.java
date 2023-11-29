@@ -1,8 +1,12 @@
 package dev.efekos.better_armor_hud.mixin;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import dev.efekos.better_armor_hud.client.BetterArmorHUDClient;
-import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +16,6 @@ import net.minecraft.item.ArmorMaterials;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -25,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Mixin(InGameHud.class)
-public abstract class InGameHudMixin {
+public abstract class InGameHudMixin extends DrawableHelper {
 
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
@@ -34,11 +37,16 @@ public abstract class InGameHudMixin {
     private static final Identifier ICONS = new Identifier(BetterArmorHUDClient.MOD_ID,"textures/gui/armor_icons.png");
 
     @Inject(method = "renderStatusBars",at = @At("TAIL"))
-    public void renderStatusBars(DrawContext context, CallbackInfo ci){
+    public void renderStatusBars(MatrixStack matricies, CallbackInfo ci){
         PlayerEntity playerEntity = this.getCameraPlayer();
         if (playerEntity != null&&playerEntity.getArmor()>0) {
-            int height = context.getScaledWindowHeight();
-            int width = context.getScaledWindowWidth();
+
+            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+            RenderSystem.setShaderColor(1,1,1,1);
+            RenderSystem.setShaderTexture(0,ICONS);
+
+            int height = MinecraftClient.getInstance().getWindow().getScaledHeight();
+            int width = MinecraftClient.getInstance().getWindow().getScaledWidth();
 
             int x = width/2-91;
 
@@ -80,84 +88,84 @@ public abstract class InGameHudMixin {
 
             //armor
             for (int i = 0; i < 10; i++) {
-                context.drawTexture(ICONS,x+i*8,y,0,0,9,9);
+                drawTexture(matricies,x+i*8,y,0,0,9,9);
 
                 if(netheriteLevel.get() >=2) {
-                    context.drawTexture(ICONS,x+i*8,y,0,54,9,9);
+                    drawTexture(matricies,x+i*8,y,0,54,9,9);
                     netheriteLevel.addAndGet(-2);
                 }
                 else if (netheriteLevel.get() ==1) {
-                    context.drawTexture(ICONS,x+i*8,y,9,54,9,9);
+                    drawTexture(matricies,x+i*8,y,9,54,9,9);
                     netheriteLevel.addAndGet(-1);
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (diamondLevel.get() >=2){
                     diamondLevel.addAndGet(-2);
-                    context.drawTexture(ICONS,x+i*8,y,0,18,9,9);
+                    drawTexture(matricies,x+i*8,y,0,18,9,9);
 
                 } else if (diamondLevel.get() ==1){
 
-                    context.drawTexture(ICONS,x+i*8,y,9,18,9,9);
+                    drawTexture(matricies,x+i*8,y,9,18,9,9);
                     diamondLevel.addAndGet(-1);
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if(goldLevel.get() >=2){
 
-                    context.drawTexture(ICONS,x+i*8,y,0,27,9,9);
+                    drawTexture(matricies,x+i*8,y,0,27,9,9);
                     goldLevel.addAndGet(-2);
                 } else if (goldLevel.get() ==1){
-                    context.drawTexture(ICONS,x+i*8,y,9,27,9,9);
+                    drawTexture(matricies,x+i*8,y,9,27,9,9);
                     goldLevel.addAndGet(-1);
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (ironLevel.get() >=2 ) {
-                    context.drawTexture(ICONS,x+i*8,y,0,9,9,9);
+                    drawTexture(matricies,x+i*8,y,0,9,9,9);
                     ironLevel.addAndGet(-2);
                 } else if (ironLevel.get() ==1){
-                    context.drawTexture(ICONS,x+i*8,y,9,9,9,9);
+                    drawTexture(matricies,x+i*8,y,9,9,9,9);
                     ironLevel.getAndDecrement();
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (leatherLevel.get() >= 2){
-                    context.drawTexture(ICONS,x+i*8,y,0,36,9,9);
+                    drawTexture(matricies,x+i*8,y,0,36,9,9);
                     leatherLevel.addAndGet(-2);
                 } else if (leatherLevel.get() == 1){
 
-                    context.drawTexture(ICONS,x+i*8,y,9,36,9,9);
+                    drawTexture(matricies,x+i*8,y,9,36,9,9);
                     leatherLevel.addAndGet(-1);
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (chainLevel.get() >=2){
-                    context.drawTexture(ICONS,x+i*8,y,0,45,9,9);
+                    drawTexture(matricies,x+i*8,y,0,45,9,9);
                     chainLevel.addAndGet(-2);
                 } else if (chainLevel.get() ==1){
-                    context.drawTexture(ICONS,x+i*8,y,9,45,9,9);
+                    drawTexture(matricies,x+i*8,y,9,45,9,9);
                     chainLevel.getAndDecrement();
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
                 } else if (turtleLevel.get() >=2){
 
-                    context.drawTexture(ICONS,x+i*8,y,0,63,9,9);
+                    drawTexture(matricies,x+i*8,y,0,63,9,9);
                     turtleLevel.addAndGet(-2);
 
                 } else if (turtleLevel.get() == 1){
                     turtleLevel.getAndDecrement();
-                    context.drawTexture(ICONS,x+i*8,y,9,63,9,9);
+                    drawTexture(matricies,x+i*8,y,9,63,9,9);
 
-                    checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
                 } else if (otherLevel.get()>=2){
-                    context.drawTexture(ICONS,x+i*8,y,0,72,9,9);
+                    drawTexture(matricies,x+i*8,y,0,72,9,9);
                     otherLevel.getAndAdd(-2);
                 } else if (otherLevel.get()==1){
                     otherLevel.getAndDecrement();
-                    context.drawTexture(ICONS,x+i*8,y,9,72,9,9);
+                    drawTexture(matricies,x+i*8,y,9,72,9,9);
 
-                    checkForRights(context,x,y,i,netheriteLevel,diamondLevel,goldLevel,ironLevel,leatherLevel,chainLevel,turtleLevel,otherLevel);
+                    checkForRights(matricies,x,y,i,netheriteLevel,diamondLevel,goldLevel,ironLevel,leatherLevel,chainLevel,turtleLevel,otherLevel);
                 }
 
             }
@@ -165,10 +173,10 @@ public abstract class InGameHudMixin {
             //toughness
             for (int i = 0; i < 10; i++) {
                 if(toughness>=2){
-                    context.drawTexture(ICONS,x+i*8,y,0,90,9,9);
+                    drawTexture(matricies,x+i*8,y,0,90,9,9);
                     toughness-=2;
                 } else if(toughness==1){
-                    context.drawTexture(ICONS,x+i*8,y,9,90,9,9);
+                    drawTexture(matricies,x+i*8,y,9,90,9,9);
                     toughness--;
                 }
             }
@@ -177,10 +185,10 @@ public abstract class InGameHudMixin {
             //knockback resistance
             for (int i = 0; i < 10; i++) {
                 if(knockbackResistance>=2){
-                    context.drawTexture(ICONS,x+i*8,y,0,81,9,9);
+                    drawTexture(matricies,x+i*8,y,0,81,9,9);
                     knockbackResistance-=2;
                 } else if(knockbackResistance==1){
-                    context.drawTexture(ICONS,x+i*8,y,9,81,9,9);
+                    drawTexture(matricies,x+i*8,y,9,81,9,9);
                     knockbackResistance--;
                 }
             }
@@ -218,36 +226,36 @@ public abstract class InGameHudMixin {
     }
 
     @Unique
-    private void checkForRights(DrawContext context,int x,int y,int i,AtomicInteger netheriteLevel, AtomicInteger diamondLevel, AtomicInteger goldLevel, AtomicInteger ironLevel, AtomicInteger leatherLevel, AtomicInteger chainLevel, AtomicInteger turtleLevel,AtomicInteger otherLevel) {
+    private void checkForRights(MatrixStack matricies,int x,int y,int i,AtomicInteger netheriteLevel, AtomicInteger diamondLevel, AtomicInteger goldLevel, AtomicInteger ironLevel, AtomicInteger leatherLevel, AtomicInteger chainLevel, AtomicInteger turtleLevel,AtomicInteger otherLevel) {
         if(netheriteLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18,54,9,9);
+            drawTexture(matricies,x+i*8,y,18,54,9,9);
             netheriteLevel.getAndDecrement();
 
         } else if (diamondLevel.get()>=1){
-            context.drawTexture(ICONS ,x+i*8,y,18,18,9,9);
+            drawTexture(matricies,x+i*8,y,18,18,9,9);
             diamondLevel.getAndDecrement();
 
         } else if (goldLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18 ,27,9,9);
+            drawTexture(matricies,x+i*8,y,18 ,27,9,9);
             goldLevel.getAndDecrement();
 
         } else if (ironLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18,9,9,9);
+            drawTexture(matricies,x+i*8,y,18,9,9,9);
             ironLevel.getAndDecrement();
 
         } else if (leatherLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18,36,9,9);
+            drawTexture(matricies,x+i*8,y,18,36,9,9);
             leatherLevel.getAndDecrement();
 
         } else if (chainLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18 ,45,9,9);
+            drawTexture(matricies,x+i*8,y,18 ,45,9,9);
             chainLevel.getAndDecrement();
 
         } else if (turtleLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18,63,9,9);
+            drawTexture(matricies,x+i*8,y,18,63,9,9);
             turtleLevel.getAndDecrement();
         } else if(otherLevel.get()>=1){
-            context.drawTexture(ICONS,x+i*8,y,18,72,9,9);
+            drawTexture(matricies,x+i*8,y,18,72,9,9);
             otherLevel.getAndDecrement();
         }
     }
