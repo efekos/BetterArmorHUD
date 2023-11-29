@@ -41,7 +41,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
         PlayerEntity playerEntity = this.getCameraPlayer();
         if (playerEntity != null&&playerEntity.getArmor()>0) {
 
-            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderColor(1,1,1,1);
             RenderSystem.setShaderTexture(0,ICONS);
 
