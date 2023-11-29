@@ -30,63 +30,8 @@ public abstract class InGameHudMixin {
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     @Shadow private int renderHealthValue;
-    @Shadow @Final private static Identifier ARMOR_EMPTY_TEXTURE;
     @Unique
-    private static final Identifier DIAMOND_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/diamond_full");
-    @Unique
-    private static final Identifier DIAMOND_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/diamond_half_right");
-    @Unique
-    private static final Identifier DIAMOND_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/diamond_half_left");
-    @Unique
-    private static final Identifier NETHERITE_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/netherite_full");
-    @Unique
-    private static final Identifier NETHERITE_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/netherite_half_left");
-    @Unique
-    private static final Identifier NETHERITE_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/netherite_half_right");
-    @Unique
-    private static final Identifier GOLD_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/gold_full");
-    @Unique
-    private static final Identifier GOLD_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/gold_half_right");
-    @Unique
-    private static final Identifier GOLD_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/gold_half_left");
-    @Unique
-    private static final Identifier IRON_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/iron_full");
-    @Unique
-    private static final Identifier IRON_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/iron_half_right");
-    @Unique
-    private static final Identifier IRON_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/iron_half_left");
-    @Unique
-    private static final Identifier LEATHER_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/leather_full");
-    @Unique
-    private static final Identifier LEATHER_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/leather_half_right");
-    @Unique
-    private static final Identifier LEATHER_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/leather_half_left");
-    @Unique
-    private static final Identifier CHAIN_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/chainmail_full");
-    @Unique
-    private static final Identifier CHAIN_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/chainmail_half_right");
-    @Unique
-    private static final Identifier CHAIN_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/chainmail_half_left");
-    @Unique
-    private static final Identifier TURTLE_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/turtle_full");
-    @Unique
-    private static final Identifier TURTLE_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/turtle_half_right");
-    @Unique
-    private static final Identifier TURTLE_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/turtle_half_left");
-    @Unique
-    private static final Identifier TOUGHNESS_FULL = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/toughness_full");
-    @Unique
-    private static final Identifier TOUGHNESS_HALF = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/toughness_half");
-    @Unique
-    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_left");
-    @Unique
-    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_half_right");
-    @Unique
-    private static final Identifier UNKNOWN_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/unknown_full");
-    @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_FULL = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/knockback_resistance_full");
-    @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_HALF = new Identifier(BetterArmorHUDClient.MOD_ID,"hud/knockback_resistance_half");
+    private static final Identifier ICONS = new Identifier(BetterArmorHUDClient.MOD_ID,"textures/gui/armor_icons.png");
 
     @Inject(method = "renderStatusBars",at = @At("TAIL"))
     public void renderStatusBars(DrawContext context, CallbackInfo ci){
@@ -135,82 +80,82 @@ public abstract class InGameHudMixin {
 
             //armor
             for (int i = 0; i < 10; i++) {
-                context.drawGuiTexture(ARMOR_EMPTY_TEXTURE,x+i*8,y,9,9);
+                context.drawTexture(ICONS,x+i*8,y,0,0,9,9);
 
                 if(netheriteLevel.get() >=2) {
-                    context.drawGuiTexture(NETHERITE_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,54,9,9,9,9);
                     netheriteLevel.addAndGet(-2);
                 }
                 else if (netheriteLevel.get() ==1) {
-                    context.drawGuiTexture(NETHERITE_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,54,9,9,9,9);
                     netheriteLevel.addAndGet(-1);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (diamondLevel.get() >=2){
                     diamondLevel.addAndGet(-2);
-                    context.drawGuiTexture(DIAMOND_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,18,9,9);
 
                 } else if (diamondLevel.get() ==1){
 
-                    context.drawGuiTexture(DIAMOND_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,18,9,9);
                     diamondLevel.addAndGet(-1);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if(goldLevel.get() >=2){
 
-                    context.drawGuiTexture(GOLD_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,27,9,9);
                     goldLevel.addAndGet(-2);
                 } else if (goldLevel.get() ==1){
-                    context.drawGuiTexture(GOLD_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,27,9,9);
                     goldLevel.addAndGet(-1);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (ironLevel.get() >=2 ) {
-                    context.drawGuiTexture(IRON_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,9,9,9);
                     ironLevel.addAndGet(-2);
                 } else if (ironLevel.get() ==1){
-                    context.drawGuiTexture(IRON_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,9,9,9);
                     ironLevel.getAndDecrement();
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (leatherLevel.get() >= 2){
-                    context.drawGuiTexture(LEATHER_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,36,9,9);
                     leatherLevel.addAndGet(-2);
                 } else if (leatherLevel.get() == 1){
 
-                    context.drawGuiTexture(LEATHER_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,36,9,9);
                     leatherLevel.addAndGet(-1);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
 
                 } else if (chainLevel.get() >=2){
-                    context.drawGuiTexture(CHAIN_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,45,9,9);
                     chainLevel.addAndGet(-2);
                 } else if (chainLevel.get() ==1){
-                    context.drawGuiTexture(CHAIN_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,45,9,9);
                     chainLevel.getAndDecrement();
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
                 } else if (turtleLevel.get() >=2){
 
-                    context.drawGuiTexture(TURTLE_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,63,9,9);
                     turtleLevel.addAndGet(-2);
 
                 } else if (turtleLevel.get() == 1){
                     turtleLevel.getAndDecrement();
-                    context.drawGuiTexture(TURTLE_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,63,9,9);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
                 } else if (otherLevel.get()>=2){
-                    context.drawGuiTexture(UNKNOWN_FULL_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,72,9,9);
                     otherLevel.getAndAdd(-2);
                 } else if (otherLevel.get()==1){
                     otherLevel.getAndDecrement();
-                    context.drawGuiTexture(UNKNOWN_HALF_LEFT_TEXTURE,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,72,9,9);
 
                     checkForRights(context,x,y,i,netheriteLevel,diamondLevel,goldLevel,ironLevel,leatherLevel,chainLevel,turtleLevel,otherLevel);
                 }
@@ -220,10 +165,10 @@ public abstract class InGameHudMixin {
             //toughness
             for (int i = 0; i < 10; i++) {
                 if(toughness>=2){
-                    context.drawGuiTexture(TOUGHNESS_FULL,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,90,9,9);
                     toughness-=2;
                 } else if(toughness==1){
-                    context.drawGuiTexture(TOUGHNESS_HALF,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,90,9,9);
                     toughness--;
                 }
             }
@@ -232,10 +177,10 @@ public abstract class InGameHudMixin {
             //knockback resistance
             for (int i = 0; i < 10; i++) {
                 if(knockbackResistance>=2){
-                    context.drawGuiTexture(KNOCKBACK_RESISTANCE_FULL,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,81,9,9);
                     knockbackResistance-=2;
                 } else if(knockbackResistance==1){
-                    context.drawGuiTexture(KNOCKBACK_RESISTANCE_HALF,x+i*8,y,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,81,9,9);
                     knockbackResistance--;
                 }
             }
@@ -275,34 +220,34 @@ public abstract class InGameHudMixin {
     @Unique
     private void checkForRights(DrawContext context,int x,int y,int i,AtomicInteger netheriteLevel, AtomicInteger diamondLevel, AtomicInteger goldLevel, AtomicInteger ironLevel, AtomicInteger leatherLevel, AtomicInteger chainLevel, AtomicInteger turtleLevel,AtomicInteger otherLevel) {
         if(netheriteLevel.get()>=1){
-            context.drawGuiTexture(NETHERITE_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18,54,9,9);
             netheriteLevel.getAndDecrement();
 
         } else if (diamondLevel.get()>=1){
-            context.drawGuiTexture(DIAMOND_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS ,x+i*8,y,18,18,9,9);
             diamondLevel.getAndDecrement();
 
         } else if (goldLevel.get()>=1){
-            context.drawGuiTexture(GOLD_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18 ,27,9,9);
             goldLevel.getAndDecrement();
 
         } else if (ironLevel.get()>=1){
-            context.drawGuiTexture(IRON_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18,9,9,9);
             ironLevel.getAndDecrement();
 
         } else if (leatherLevel.get()>=1){
-            context.drawGuiTexture(LEATHER_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18,36,9,9);
             leatherLevel.getAndDecrement();
 
         } else if (chainLevel.get()>=1){
-            context.drawGuiTexture(CHAIN_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18 ,45,9,9);
             chainLevel.getAndDecrement();
 
         } else if (turtleLevel.get()>=1){
-            context.drawGuiTexture(TURTLE_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18,63,9,9);
             turtleLevel.getAndDecrement();
         } else if(otherLevel.get()>=1){
-            context.drawGuiTexture(UNKNOWN_HALF_RIGHT_TEXTURE,x+i*8,y,9,9);
+            context.drawTexture(ICONS,x+i*8,y,18,72,9,9);
             otherLevel.getAndDecrement();
         }
     }
