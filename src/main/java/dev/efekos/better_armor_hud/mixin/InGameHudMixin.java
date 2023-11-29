@@ -83,11 +83,11 @@ public abstract class InGameHudMixin {
                 context.drawTexture(ICONS,x+i*8,y,0,0,9,9);
 
                 if(netheriteLevel.get() >=2) {
-                    context.drawTexture(ICONS,x+i*8,y,0,54,9,9,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,0,54,9,9);
                     netheriteLevel.addAndGet(-2);
                 }
                 else if (netheriteLevel.get() ==1) {
-                    context.drawTexture(ICONS,x+i*8,y,9,54,9,9,9,9);
+                    context.drawTexture(ICONS,x+i*8,y,9,54,9,9);
                     netheriteLevel.addAndGet(-1);
 
                     checkForRights(context,x,y,i, netheriteLevel, diamondLevel, goldLevel, ironLevel, leatherLevel, chainLevel, turtleLevel,otherLevel);
