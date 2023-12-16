@@ -193,7 +193,7 @@ public abstract class InGameHudMixin {
     private int calculateArmorFor(ArmorMaterial material, List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            if((item.getItem() instanceof ArmorItem armorItem)) if(armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
+            if((item.getItem() instanceof ArmorItem armorItem) && armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
         }
         return i;
     }
@@ -202,7 +202,7 @@ public abstract class InGameHudMixin {
     private float calculateToughness(List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) armorItem.getToughness();
+            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().getToughness());
         }
         return i;
     }
