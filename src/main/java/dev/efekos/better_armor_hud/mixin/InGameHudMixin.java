@@ -199,8 +199,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private int calculateArmorFor(ArmorMaterial material, List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            if(armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
+            if((item.getItem() instanceof ArmorItem armorItem) && armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
         }
         return i;
     }
@@ -209,8 +208,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private float calculateToughness(List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            i += (int) armorItem.getToughness();
+            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().getToughness());
         }
         return i;
     }
@@ -219,8 +217,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     private float calculateKnockbackResistance(List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            i += (int) (armorItem.getMaterial().getKnockbackResistance()*10.0F);
+            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().getKnockbackResistance()*10.0F);
         }
         return i;
     }
