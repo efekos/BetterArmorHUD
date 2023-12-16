@@ -3,6 +3,7 @@ package dev.efekos.better_armor_hud.mixin;
 import dev.efekos.better_armor_hud.client.BetterArmorHUDClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
+import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,6 +31,7 @@ public abstract class InGameHudMixin {
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     @Shadow private int renderHealthValue;
+    @Shadow @Final private ItemRenderer itemRenderer;
     @Unique
     private static final Identifier ICONS = new Identifier(BetterArmorHUDClient.MOD_ID,"textures/gui/armor_icons.png");
 
@@ -191,8 +193,7 @@ public abstract class InGameHudMixin {
     private int calculateArmorFor(ArmorMaterial material, List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            if(armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
+            if((item.getItem() instanceof ArmorItem armorItem)) if(armorItem.getMaterial().equals(material)) i += armorItem.getProtection();
         }
         return i;
     }
@@ -201,8 +202,7 @@ public abstract class InGameHudMixin {
     private float calculateToughness(List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            i += (int) armorItem.getToughness();
+            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) armorItem.getToughness();
         }
         return i;
     }
@@ -211,8 +211,7 @@ public abstract class InGameHudMixin {
     private float calculateKnockbackResistance(List<ItemStack> items){
         int i = 0;
         for (ItemStack item : items) {
-            ArmorItem armorItem = (ArmorItem) item.getItem();
-            i += (int) (armorItem.getMaterial().getKnockbackResistance()*10.0F);
+            if((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().getKnockbackResistance()*10.0F);
         }
         return i;
     }
