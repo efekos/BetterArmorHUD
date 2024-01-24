@@ -8,7 +8,10 @@
     "efekos"
   ],
   "contact": {
-    "repo": "https://github.com/efekos/BetterArmorHUD"
+    "repo": "https://github.com/efekos/BetterArmorHUD",
+    "sources": "https://github.com/efekos/BetterArmorHUD",
+    "issues": "https://github.com/efekos/BetterArmorHUD/issues",
+    "homepage": "https://modrinth.com/mod/betterarmorhud"
   },
   "license": "MIT",
   "icon": "assets/better_armor_hud/icon.png",
