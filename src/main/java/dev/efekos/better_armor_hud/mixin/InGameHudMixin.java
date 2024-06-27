@@ -36,61 +36,61 @@ public abstract class InGameHudMixin {
     @Final
     private static Identifier ARMOR_EMPTY_TEXTURE;
     @Unique
-    private static final Identifier DIAMOND_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/diamond_full");
+    private static final Identifier DIAMOND_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_full");
     @Unique
-    private static final Identifier DIAMOND_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_right");
+    private static final Identifier DIAMOND_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_right");
     @Unique
-    private static final Identifier DIAMOND_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_left");
+    private static final Identifier DIAMOND_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_left");
     @Unique
-    private static final Identifier NETHERITE_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/netherite_full");
+    private static final Identifier NETHERITE_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_full");
     @Unique
-    private static final Identifier NETHERITE_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_left");
+    private static final Identifier NETHERITE_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_left");
     @Unique
-    private static final Identifier NETHERITE_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_right");
+    private static final Identifier NETHERITE_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_right");
     @Unique
-    private static final Identifier GOLD_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/gold_full");
+    private static final Identifier GOLD_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_full");
     @Unique
-    private static final Identifier GOLD_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/gold_half_right");
+    private static final Identifier GOLD_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_half_right");
     @Unique
-    private static final Identifier GOLD_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/gold_half_left");
+    private static final Identifier GOLD_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_half_left");
     @Unique
-    private static final Identifier IRON_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/iron_full");
+    private static final Identifier IRON_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_full");
     @Unique
-    private static final Identifier IRON_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/iron_half_right");
+    private static final Identifier IRON_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_half_right");
     @Unique
-    private static final Identifier IRON_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/iron_half_left");
+    private static final Identifier IRON_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_half_left");
     @Unique
-    private static final Identifier LEATHER_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/leather_full");
+    private static final Identifier LEATHER_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_full");
     @Unique
-    private static final Identifier LEATHER_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/leather_half_right");
+    private static final Identifier LEATHER_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_half_right");
     @Unique
-    private static final Identifier LEATHER_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/leather_half_left");
+    private static final Identifier LEATHER_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_half_left");
     @Unique
-    private static final Identifier CHAIN_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/chainmail_full");
+    private static final Identifier CHAIN_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_full");
     @Unique
-    private static final Identifier CHAIN_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_right");
+    private static final Identifier CHAIN_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_right");
     @Unique
-    private static final Identifier CHAIN_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_left");
+    private static final Identifier CHAIN_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_left");
     @Unique
-    private static final Identifier TURTLE_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/turtle_full");
+    private static final Identifier TURTLE_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_full");
     @Unique
-    private static final Identifier TURTLE_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_right");
+    private static final Identifier TURTLE_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_right");
     @Unique
-    private static final Identifier TURTLE_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_left");
+    private static final Identifier TURTLE_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_left");
     @Unique
-    private static final Identifier TOUGHNESS_FULL = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/toughness_full");
+    private static final Identifier TOUGHNESS_FULL = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/toughness_full");
     @Unique
-    private static final Identifier TOUGHNESS_HALF = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/toughness_half");
+    private static final Identifier TOUGHNESS_HALF = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/toughness_half");
     @Unique
-    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_left");
+    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_left");
     @Unique
-    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_right");
+    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_right");
     @Unique
-    private static final Identifier UNKNOWN_FULL_TEXTURE = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/unknown_full");
+    private static final Identifier UNKNOWN_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_full");
     @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_FULL = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_full");
+    private static final Identifier KNOCKBACK_RESISTANCE_FULL = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_full");
     @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_HALF = new Identifier(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_half");
+    private static final Identifier KNOCKBACK_RESISTANCE_HALF = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_half");
 
     @Inject(method = "renderStatusBars", at = @At("TAIL"))
     public void renderStatusBars(DrawContext context, CallbackInfo ci) {
@@ -123,13 +123,13 @@ public abstract class InGameHudMixin {
 
             int toughness = (int) calculateToughness(armorStacks);
             int knockbackResistance = (int) calculateKnockbackResistance(armorStacks);
-            AtomicInteger leatherLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.LEATHER, armorStacks));
-            AtomicInteger chainLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.CHAIN, armorStacks));
-            AtomicInteger netheriteLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.NETHERITE, armorStacks));
-            AtomicInteger turtleLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.TURTLE, armorStacks));
-            AtomicInteger diamondLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.DIAMOND, armorStacks));
-            AtomicInteger goldLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.GOLD, armorStacks));
-            AtomicInteger ironLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.IRON, armorStacks));
+            AtomicInteger leatherLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.LEATHER.value(), armorStacks));
+            AtomicInteger chainLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.CHAIN.value(), armorStacks));
+            AtomicInteger netheriteLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.NETHERITE.value(), armorStacks));
+            AtomicInteger turtleLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.TURTLE.value(), armorStacks));
+            AtomicInteger diamondLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.DIAMOND.value(), armorStacks));
+            AtomicInteger goldLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.GOLD.value(), armorStacks));
+            AtomicInteger ironLevel = new AtomicInteger(calculateArmorFor(ArmorMaterials.IRON.value(), armorStacks));
             AtomicInteger otherLevel = new AtomicInteger(
                     playerEntity.getArmor() -
                             leatherLevel.get() -
@@ -263,7 +263,7 @@ public abstract class InGameHudMixin {
     private float calculateToughness(List<ItemStack> items) {
         int i = 0;
         for (ItemStack item : items) {
-            if ((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().getToughness());
+            if ((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().value().toughness());
         }
         return i;
     }
@@ -273,7 +273,7 @@ public abstract class InGameHudMixin {
         int i = 0;
         for (ItemStack item : items) {
             if ((item.getItem() instanceof ArmorItem armorItem))
-                i += (int) (armorItem.getMaterial().getKnockbackResistance() * 10.0F);
+                i += (int) (armorItem.getMaterial().value().knockbackResistance() * 10.0F);
         }
         return i;
     }
