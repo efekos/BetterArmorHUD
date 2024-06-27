@@ -253,7 +253,7 @@ public abstract class InGameHudMixin {
     private int calculateArmorFor(ArmorMaterial material, List<ItemStack> items) {
         int i = 0;
         for (ItemStack item : items) {
-            if ((item.getItem() instanceof ArmorItem armorItem) && armorItem.getMaterial().equals(material))
+            if ((item.getItem() instanceof ArmorItem armorItem) && armorItem.getMaterial().value().equals(material))
                 i += armorItem.getProtection();
         }
         return i;
