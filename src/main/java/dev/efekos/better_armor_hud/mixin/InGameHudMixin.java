@@ -35,6 +35,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
     @Shadow private int renderHealthValue;
     @Unique
     private static final Identifier ICONS = new Identifier(BetterArmorHUDClient.MOD_ID,"textures/gui/armor_icons.png");
+    private static final Identifier VANILLA_ICONS = new Identifier("textures/gui/icons.png");
 
     @Inject(method = "renderStatusBars",at = @At("TAIL"))
     public void renderStatusBars(MatrixStack matricies, CallbackInfo ci){
@@ -193,6 +194,7 @@ public abstract class InGameHudMixin extends DrawableHelper {
                 }
             }
         }
+        RenderSystem.setShaderTexture(0,VANILLA_ICONS);
     }
 
     @Unique
