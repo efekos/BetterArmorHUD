@@ -27,14 +27,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Mixin(InGameHud.class)
 public abstract class InGameHudMixin {
 
-    @Shadow
-    protected abstract PlayerEntity getCameraPlayer();
-
-    @Shadow
-    private int renderHealthValue;
-    @Shadow
-    @Final
-    private static Identifier ARMOR_EMPTY_TEXTURE;
     @Unique
     private static final Identifier DIAMOND_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_full");
     @Unique
@@ -91,6 +83,14 @@ public abstract class InGameHudMixin {
     private static final Identifier KNOCKBACK_RESISTANCE_FULL = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_full");
     @Unique
     private static final Identifier KNOCKBACK_RESISTANCE_HALF = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_half");
+    @Shadow
+    @Final
+    private static Identifier ARMOR_EMPTY_TEXTURE;
+    @Shadow
+    private int renderHealthValue;
+
+    @Shadow
+    protected abstract PlayerEntity getCameraPlayer();
 
     @Inject(method = "renderStatusBars", at = @At("TAIL"))
     public void renderStatusBars(DrawContext context, CallbackInfo ci) {
@@ -263,7 +263,8 @@ public abstract class InGameHudMixin {
     private float calculateToughness(List<ItemStack> items) {
         int i = 0;
         for (ItemStack item : items) {
-            if ((item.getItem() instanceof ArmorItem armorItem)) i += (int) (armorItem.getMaterial().value().toughness());
+            if ((item.getItem() instanceof ArmorItem armorItem))
+                i += (int) (armorItem.getMaterial().value().toughness());
         }
         return i;
     }
