@@ -16,11 +16,7 @@
   "license": "MIT",
   "icon": "assets/better_armor_hud/icon.png",
   "environment": "client",
-  "entrypoints": {
-    "client": [
-      "dev.efekos.better_armor_hud.client.BetterArmorHUDClient"
-    ]
-  },
+  "entrypoints": {},
   "mixins": [
     "better_armor_hud.mixins.json"
   ],

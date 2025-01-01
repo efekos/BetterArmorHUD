@@ -1,6 +1,5 @@
 package dev.efekos.better_armor_hud.mixin;
 
-import dev.efekos.better_armor_hud.client.BetterArmorHUDClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.entity.EquipmentSlot;
@@ -28,61 +27,64 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class InGameHudMixin {
 
     @Unique
-    private static final Identifier DIAMOND_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_full");
+    private static final String MOD_ID = "better_armor_hud";
+
     @Unique
-    private static final Identifier DIAMOND_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_right");
+    private static final Identifier DIAMOND_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/diamond_full");
     @Unique
-    private static final Identifier DIAMOND_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/diamond_half_left");
+    private static final Identifier DIAMOND_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/diamond_half_right");
     @Unique
-    private static final Identifier NETHERITE_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_full");
+    private static final Identifier DIAMOND_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/diamond_half_left");
     @Unique
-    private static final Identifier NETHERITE_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_left");
+    private static final Identifier NETHERITE_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/netherite_full");
     @Unique
-    private static final Identifier NETHERITE_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/netherite_half_right");
+    private static final Identifier NETHERITE_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/netherite_half_left");
     @Unique
-    private static final Identifier GOLD_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_full");
+    private static final Identifier NETHERITE_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/netherite_half_right");
     @Unique
-    private static final Identifier GOLD_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_half_right");
+    private static final Identifier GOLD_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/gold_full");
     @Unique
-    private static final Identifier GOLD_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/gold_half_left");
+    private static final Identifier GOLD_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/gold_half_right");
     @Unique
-    private static final Identifier IRON_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_full");
+    private static final Identifier GOLD_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/gold_half_left");
     @Unique
-    private static final Identifier IRON_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_half_right");
+    private static final Identifier IRON_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/iron_full");
     @Unique
-    private static final Identifier IRON_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/iron_half_left");
+    private static final Identifier IRON_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/iron_half_right");
     @Unique
-    private static final Identifier LEATHER_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_full");
+    private static final Identifier IRON_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/iron_half_left");
     @Unique
-    private static final Identifier LEATHER_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_half_right");
+    private static final Identifier LEATHER_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/leather_full");
     @Unique
-    private static final Identifier LEATHER_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/leather_half_left");
+    private static final Identifier LEATHER_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/leather_half_right");
     @Unique
-    private static final Identifier CHAIN_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_full");
+    private static final Identifier LEATHER_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/leather_half_left");
     @Unique
-    private static final Identifier CHAIN_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_right");
+    private static final Identifier CHAIN_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/chainmail_full");
     @Unique
-    private static final Identifier CHAIN_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/chainmail_half_left");
+    private static final Identifier CHAIN_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/chainmail_half_right");
     @Unique
-    private static final Identifier TURTLE_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_full");
+    private static final Identifier CHAIN_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/chainmail_half_left");
     @Unique
-    private static final Identifier TURTLE_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_right");
+    private static final Identifier TURTLE_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/turtle_full");
     @Unique
-    private static final Identifier TURTLE_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/turtle_half_left");
+    private static final Identifier TURTLE_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/turtle_half_right");
     @Unique
-    private static final Identifier TOUGHNESS_FULL = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/toughness_full");
+    private static final Identifier TURTLE_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/turtle_half_left");
     @Unique
-    private static final Identifier TOUGHNESS_HALF = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/toughness_half");
+    private static final Identifier TOUGHNESS_FULL = Identifier.of(MOD_ID, "hud/toughness_full");
     @Unique
-    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_left");
+    private static final Identifier TOUGHNESS_HALF = Identifier.of(MOD_ID, "hud/toughness_half");
     @Unique
-    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_half_right");
+    private static final Identifier UNKNOWN_HALF_LEFT_TEXTURE = Identifier.of(MOD_ID, "hud/unknown_half_left");
     @Unique
-    private static final Identifier UNKNOWN_FULL_TEXTURE = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/unknown_full");
+    private static final Identifier UNKNOWN_HALF_RIGHT_TEXTURE = Identifier.of(MOD_ID, "hud/unknown_half_right");
     @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_FULL = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_full");
+    private static final Identifier UNKNOWN_FULL_TEXTURE = Identifier.of(MOD_ID, "hud/unknown_full");
     @Unique
-    private static final Identifier KNOCKBACK_RESISTANCE_HALF = Identifier.of(BetterArmorHUDClient.MOD_ID, "hud/knockback_resistance_half");
+    private static final Identifier KNOCKBACK_RESISTANCE_FULL = Identifier.of(MOD_ID, "hud/knockback_resistance_full");
+    @Unique
+    private static final Identifier KNOCKBACK_RESISTANCE_HALF = Identifier.of(MOD_ID, "hud/knockback_resistance_half");
     @Shadow
     @Final
     private static Identifier ARMOR_EMPTY_TEXTURE;
